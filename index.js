@@ -39,12 +39,32 @@ function(){
         }
 });
 
+
+
 document.getElementById('input').addEventListener("blur", // удаляет список при не фокусе (чтобы он не копировался дважды)
         function(){  
-                document.getElementById('ull').remove();
-                data2 = [];
-                document.getElementById('input').value = "";
+    
+            let a = document.getElementsByTagName('a'); // но, чтобы при клике на список он не удалялся - делаем это
+                for (let j = 0; j <= a.length; j++){
+                    if (a[j] !== undefined){
+                          a[j].addEventListener('click', function(){
+                 document.getElementById('input').value = a[j].innerText; // выбираем город
+                  document.getElementById('ull').remove(); // а все остальное стираем
+                    setTimeout(function(){alert(document.getElementById('input').value)}, 100);  
+                    data2 = [];
+                    })} else {
+                       document.getElementById('input').value = ""; // выбираем город
+                  document.getElementById('ull').remove(); // а все остальное стираем
+                    data2 = [];
+                    }
+    }
 });
+
+
+
+          
+
+
 
 
 
@@ -57,7 +77,6 @@ document.getElementById('input').addEventListener("keyup",
             li = document.getElementsByTagName("li");
 
             let counter = 0;
-            let counter2 = 0;
             for (i = 0; i < li.length; i++){
                 a = li[i].getElementsByTagName("a")[0];
                 if ((a.innerHTML.toUpperCase().indexOf(filter) > -1) && (counter < 6) ){ // делает так, что не больше 5
@@ -76,13 +95,7 @@ document.getElementById('input').addEventListener("keyup",
 
     });
 
-//  let a = document.getElementsByTagName('a');
-// for (let j = 0; j <= a.length; j++){
-//     a[j].addEventListener('click', function(){
-//         document.getElementById('input').value = a[j];
 
-//     } )
-// }
 
 
 
