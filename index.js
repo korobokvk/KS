@@ -57,17 +57,34 @@ document.getElementById('input').addEventListener("keyup",
             li = document.getElementsByTagName("li");
 
             let counter = 0;
+            let counter2 = 0;
             for (i = 0; i < li.length; i++){
                 a = li[i].getElementsByTagName("a")[0];
-                if ((a.innerHTML.toUpperCase().indexOf(filter) > -1) && (counter < 6) ){
+                if ((a.innerHTML.toUpperCase().indexOf(filter) > -1) && (counter < 6) ){ // делает так, что не больше 5
                     li[i].style.display = "block";
-                     counter++;
+                     counter++; 
+                } else if (document.getElementById('input').value == ""){
+                    for (let j = 0; j < li.length; j ++){    // возвращает обратно лист если убираем буквы
+                        li[j].style.display = "block";
+                    }
                 } else {
-                    li[i].style.display = "none";
+                    li[i].style.display = "none"; // убираем несовпадения
                 }}
 
 
+
+
     });
+
+//  let a = document.getElementsByTagName('a');
+// for (let j = 0; j <= a.length; j++){
+//     a[j].addEventListener('click', function(){
+//         document.getElementById('input').value = a[j];
+
+//     } )
+// }
+
+
 
 
 
