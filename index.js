@@ -106,9 +106,9 @@
 let city = new Autocomplete(cities);
 
   
-document.getElementById('input').addEventListener("focus",  // выдает полный список по алфавиту при клике
+document.getElementById('foc').addEventListener("click",  // выдает полный список по алфавиту при клике
 function(){
-
+    
     city.getArr2();
     city.allCities();
     city.yourChoise();
@@ -119,9 +119,8 @@ function(){
 
 document.getElementById('main').addEventListener("click", // удаляет список при не фокусе (чтобы он не копировался дважды)
         function(){ 
-
        city.blur(); 
-       city.rem();
+       // city.rem();
   
 });
 
