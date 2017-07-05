@@ -14,65 +14,44 @@
 
     xhr.send();
 
-let data2 = [];
-function bet(arr){    // функция, которая сортирует города по алфавиту, создавая новый массив( чтобы сохранить старый)
-    for (let key in arr){
-        data2.push(arr[key].toLowerCase());
-            };
 
-    data2.sort();
-    console.log(data2);
-    return data2;
-};
+    class Autocomplete {
 
-
-document.getElementById('input').addEventListener("focus",  // выдает полный список по алфавиту при клике
-function(){
-        bet(cities);
-        let ul = document.createElement('ul');
-        ul.id = "ull"
-        document.getElementById('main').appendChild(ul);
-        for (let key in data2){
-            let newBox = document.createElement('li');
-            newBox.innerHTML = "<a href='#'>" + data2[key] + "</a>";
-            ul.appendChild(newBox);
-        }
-});
-
-
-
-document.getElementById('input').addEventListener("blur", // удаляет список при не фокусе (чтобы он не копировался дважды)
-        function(){  
-    
-            let a = document.getElementsByTagName('a'); // но, чтобы при клике на список он не удалялся - делаем это
-                for (let j = 0; j <= a.length; j++){
-                    if (a[j] !== undefined){
-                          a[j].addEventListener('click', function(){
-                 document.getElementById('input').value = a[j].innerText; // выбираем город
-                  document.getElementById('ull').remove(); // а все остальное стираем
-                    setTimeout(function(){alert(document.getElementById('input').value)}, 100);  
-                    data2 = [];
-                    })} else {
-                       document.getElementById('input').value = ""; // выбираем город
-                  document.getElementById('ull').remove(); // а все остальное стираем
-                    data2 = [];
-                    }
+        constructor(arr) {
+            this.arr = arr;  
+            this.arr2 = [];
     }
-});
+
+      getArr2() { 
+                     for (let key in this.arr){
+                this.arr2.push(this.arr[key].toLowerCase());
+                     };
+                this.arr2.sort();
+             return this.arr2;
+
+            }
+    
+   
+        allCities(){
+                    let ul = document.createElement('ul');
+                    ul.id = "ull";
+            document.getElementById('foc').appendChild(ul);
+            for (let key in this.arr2){
+                let newBox = document.createElement('li');
+                newBox.innerHTML = "<a href='#'>" + this.arr2[key] + "</a>";
+                ul.appendChild(newBox);
+        }
 
 
+        }
 
-          
+        setTarget(event){
+            document.getElementById('ull').contains(event.target);
 
+        }
 
-
-
-
-
-document.getElementById('input').addEventListener("keyup", 
-
-  function (){                          // функция, которая показывает города по совпадениям
-         let filter, ul, li,a,i;
+        keyUp(){
+                 let filter, ul, li,a,i;
             filter = document.getElementById('input').value.toUpperCase();
             li = document.getElementsByTagName("li");
 
@@ -91,7 +70,65 @@ document.getElementById('input').addEventListener("keyup",
                 }}
 
 
+        }
 
+        blur(){
+                       this.arr2 = [];
+            
+    }
+
+       
+
+       yourChoise(){
+        this.blur();
+                let a = document.getElementsByTagName('a'); 
+                for (let j = 0; j <= a.length; j++){
+                          a[j].addEventListener('click', function(){
+                            document.getElementById('input').onfocus = true;
+                 document.getElementById('input').value = a[j].innerText;
+                    setTimeout(function(){alert(document.getElementById('input').value)}, 100);  
+                    }
+      
+       
+                    )}
+
+       } 
+
+        rem(){
+                 document.getElementById('ull').remove(); 
+        }
+
+};
+
+
+        
+    
+let city = new Autocomplete(cities);
+
+  
+document.getElementById('input').addEventListener("focus",  // выдает полный список по алфавиту при клике
+function(){
+
+    city.getArr2();
+    city.allCities();
+    city.yourChoise();
+});
+
+
+
+
+document.getElementById('main').addEventListener("click", // удаляет список при не фокусе (чтобы он не копировался дважды)
+        function(){ 
+
+       city.blur(); 
+       city.rem();
+  
+});
+
+
+document.getElementById('input').addEventListener("keyup", 
+  function (){                          // функция, которая показывает города по совпадениям    
+city.keyUp();
 
     });
 

@@ -21,3 +21,13 @@
         display: block;
     }
 
+    #main{
+        background: grey;
+    }
+
+    #foc{
+          width: 200px;
+        height: auto;
+        background: #E9C6C6;
+    }
+
